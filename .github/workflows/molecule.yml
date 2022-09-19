@@ -22,6 +22,7 @@ jobs:
           - openshift
           - rsyslog_client
           - rsyslog_server
+          - mofed
           - singularity_wrapper
           - slurm
           - spack
@@ -37,7 +38,8 @@ jobs:
       - name: install dependencies
         run: |
           python3 -m pip install --upgrade pip
-          python3 -m pip install molecule[docker] docker ansible
+          python3 -m pip install ansible==4.8.0
+          python3 -m pip install molecule[docker] docker
       - name: run molecule test
         run: |
           cd "${{ github.repository }}/roles"

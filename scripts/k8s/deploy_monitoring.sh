@@ -24,7 +24,7 @@ if [ ! -d "${DEEPOPS_CONFIG_DIR}" ]; then
 fi
 
 HELM_CHARTS_REPO_PROMETHEUS="${HELM_CHARTS_REPO_PROMETHEUS:-https://prometheus-community.github.io/helm-charts}"
-HELM_PROMETHEUS_CHART_VERSION="${HELM_PROMETHEUS_CHART_VERSION:-15.2.0}"
+HELM_PROMETHEUS_CHART_VERSION="${HELM_PROMETHEUS_CHART_VERSION:-39.5.0}"
 ingress_name="ingress-nginx"
 
 PROMETHEUS_YAML_CONFIG="${PROMETHEUS_YAML_CONFIG:-${DEEPOPS_CONFIG_DIR}/helm/monitoring.yml}"
@@ -152,6 +152,7 @@ function setup_prom_monitoring() {
             --set alertmanager.ingress.hosts[0]="alertmanager-${ingress_ip_string}" \
             --set prometheus.ingress.hosts[0]="prometheus-${ingress_ip_string}" \
             --set grafana.ingress.hosts[0]="grafana-${ingress_ip_string}" \
+	    --timeout 1200s \
             ${helm_prom_oper_args} \
             ${helm_kube_prom_args}
     fi
@@ -276,8 +277,8 @@ install_dependencies
 setup_prom_monitoring
 
 # Install DCGM-Exporter and setup custom metrics, if needed
-# # GPU Device Plugin is installed into kube-system, GPU Operator installs it into gpu-operator-resources
-plugin_namespace=$( kubectl get pods -A -l app.kubernetes.io/instance=nvidia-device-plugin  --no-headers   --no-headers -o custom-columns=NAMESPACE:.metadata.namespace)
+# # GPU Device Plugin is installed into kube-system, GPU Operator installs it into gpu-operator-resources, use uniq for HA K8s clusters
+plugin_namespace=$( kubectl get pods -A -l app.kubernetes.io/instance=nvidia-device-plugin  --no-headers   --no-headers -o custom-columns=NAMESPACE:.metadata.namespace | uniq)
 if [ "${plugin_namespace}" == "kube-system" ] ; then
     # No GPU Operator DCGM-Exporter Stack
     setup_gpu_monitoring

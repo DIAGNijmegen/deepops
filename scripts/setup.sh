@@ -4,19 +4,21 @@
 #   This script installs required dependencies on a system so it can run Ansible
 #   and initializes the DeepOps directory
 #
-# Can be run standalone with: curl -sL git.io/deepops | bash
-#                         or: curl -sL git.io/deepops | bash -s -- 19.07
+# Can be run standalone with: curl -sL bit.ly/nvdeepops | bash
+#                         or: curl -sL bit.ly/nvdeepops | bash -s -- 19.07
 
 # Determine current directory and root directory
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 ROOT_DIR="${SCRIPT_DIR}/.."
 
 # Configuration
-ANSIBLE_VERSION="${ANSIBLE_VERSION:-2.9.27}"     # Ansible version to install
-ANSIBLE_TOO_NEW="${ANSIBLE_TOO_NEW:-2.10.0}"    # Ansible version too new
+ANSIBLE_VERSION="${ANSIBLE_VERSION:-4.8.0}"     # Ansible version to install
+ANSIBLE_TOO_NEW="${ANSIBLE_TOO_NEW:-5.0.0}"    # Ansible version too new
+ANSIBLE_LINT_VERSION="${ANSIBLE_LINT_VERSION:-5.4.0}"
 CONFIG_DIR="${CONFIG_DIR:-${ROOT_DIR}/config}"            # Default configuration directory location
 DEEPOPS_TAG="${1:-master}"                      # DeepOps branch to set up
-JINJA2_VERSION="${JINJA2_VERSION:-2.11.1}"      # Jinja2 required version
+JINJA2_VERSION="${JINJA2_VERSION:-2.11.3}"      # Jinja2 required version
+MARKUPSAFE_VERSION="${MARKUPSAFE_VERSION:-1.1.1}"  # MarkupSafe version
 PIP="${PIP:-pip3}"                              # Pip binary to use
 PYTHON_BIN="${PYTHON_BIN:-/usr/bin/python3}"    # Python3 path
 VENV_DIR="${VENV_DIR:-/opt/deepops/env}"        # Path to python virtual environment to create
@@ -109,12 +111,13 @@ if command -v virtualenv &> /dev/null ; then
 
     as_user "${PIP} install -q --upgrade \
         ansible==${ANSIBLE_VERSION} \
+	ansible-lint==${ANSIBLE_LINT_VERSION} \
         Jinja2==${JINJA2_VERSION} \
         netaddr \
         ruamel.yaml \
         PyMySQL \
         paramiko \
-        MarkupSafe==2.0.1
+        MarkupSafe==${MARKUPSAFE_VERSION} \
         selinux"
 else
     echo "ERROR: Unable to create Python virtual environment, 'virtualenv' command not found"

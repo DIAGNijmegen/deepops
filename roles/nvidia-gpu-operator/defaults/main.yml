@@ -12,7 +12,7 @@ gpu_operator_nvaie_helm_repo: "https://helm.ngc.nvidia.com/nvaie"
 gpu_operator_nvaie_chart_name: "nvaie/gpu-operator"
 
 # NVAIE GPU Operator may require different version, check NGC enterprise collection.
-gpu_operator_chart_version: "1.9.1"
+gpu_operator_chart_version: "1.11.1"
 
 k8s_gpu_mig_strategy: "mixed"
 
@@ -33,8 +33,9 @@ gpu_operator_namespace: "gpu-operator-resources"
 gpu_operator_grid_config_dir: "{{ deepops_dir }}/gpu_operator"
 
 # Defaults from https://github.com/NVIDIA/gpu-operator/blob/master/deployments/gpu-operator/values.yaml
+gpu_operator_default_runtime: "containerd"
 gpu_operator_driver_registry: "nvcr.io/nvidia"
-gpu_operator_driver_version: "470.82.01"
+gpu_operator_driver_version: "515.48.07"
 
 # This enables/disables NVAIE
 gpu_operator_nvaie_enable: false
@@ -55,4 +56,3 @@ gpu_operator_registry_username: "$oauthtoken"
 gpu_operator_registry_password: ""
 ## This is most likely an NGC email
 gpu_operator_registry_email: ""
-

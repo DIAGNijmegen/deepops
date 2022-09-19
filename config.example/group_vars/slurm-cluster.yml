@@ -3,7 +3,7 @@
 ################################################################################
 # Slurm job scheduler configuration
 # Playbook: slurm, slurm-cluster, slurm-perf, slurm-perf-cluster, slurm-validation
-slurm_version: 21.08.5
+slurm_version: "22.05.2"
 slurm_install_prefix: /usr/local
 pmix_install_prefix: /opt/deepops/pmix
 hwloc_install_prefix: /opt/deepops/hwloc
@@ -50,12 +50,16 @@ slurm_allow_ssh_user: []
 # See docs/slurm-cluster/slurm-single-node.md
 slurm_login_on_compute: false
 
+################################################################################
+# Kubespray - necessary configuration for Docker setup                         #
+################################################################################
+dns_mode: "none"
+dns_late: false
 
 ################################################################################
 # Optional installs                                                            #
 ################################################################################
 slurm_configure_etc_hosts: yes
-dns_mode: none
 slurm_cluster_install_cuda: yes
 slurm_cluster_install_nvidia_driver: yes
 slurm_cluster_install_singularity: no
@@ -90,6 +94,9 @@ slurm_enable_nfs_client_nodes: true
 # Inventory host groups to use for NFS server or clients
 nfs_server_group: "slurm-master[0]"
 nfs_client_group: "slurm-master[1:],slurm-node"
+
+# Flags for sharing slurm.conf among compute and control nodes
+slurm_conf_symlink: false
 
 ################################################################################
 # SOFTWARE MODULES (SM)                                                        #
@@ -175,6 +182,12 @@ allow_user_set_gpu_clocks: no
 slurm_install_enroot: true
 slurm_install_pyxis: true
 slurm_pyxis_version: 0.11.1
+
+# /run is default partition of pyxis runtime_path
+resize_run_partition: false
+
+# /run tmpfs size. ubuntu default is 10%
+pyxis_run_tmpfs_size: 50%
 
 ################################################################################
 # Node Health Check                                                            #

@@ -1,4 +1,16 @@
-# NVIDIA Deep Learning Examples for Kubernetes
+# Deep Learning Examples
+
+- [Deep Learning Examples](#deep-learning-examples)
+  - [Introduction](#introduction)
+  - [DeepOps Deployment Options](#deepops-deployment-options)
+    - [Deployment Example Name Options:](#deployment-example-name-options)
+  - [Performance](#performance)
+    - [Computer Vision](#computer-vision)
+    - [Natural Language Processing](#natural-language-processing)
+    - [Recommender Systems](#recommender-systems)
+    - [Speech to Text](#speech-to-text)
+    - [Text to Speech](#text-to-speech)
+    - [Graph Neural Networks](#graph-neural-networks)
 
 ## Introduction
 
@@ -13,9 +25,10 @@ helm install <DEPLOYMENT_EXAMPLE_NAME> workloads/examples/k8s/deep-learning-exam
 ```
 
 Deployment modifications may be made using the `--set` flag or directly in the values.yaml.
+See the [values.yaml](../../workloads/examples/k8s/deep-learning-examples/values.yaml) file for more detail on the available configuration.
 
 ### Deployment Example Name Options:
-
+```yaml
 - cuda-optimized-fastspeech
 - dglpytorch-drugdiscovery-se3transformer
 - mxnet-classification
@@ -55,6 +68,7 @@ Deployment modifications may be made using the `--set` flag or directly in the v
 - tensorflow2-recommendation-wideanddeep
 - tensorflow2-segmentation-maskrcnn
 - tensorflow2-segmentation-unet-medical
+```
 
 ## Performance
 
