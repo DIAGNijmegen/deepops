@@ -69,7 +69,12 @@ pipeline {
 
           echo "Verify local docker registry"
           sh '''
-             echo "unsupported configuration" # TODO bash -x ./workloads/jenkins/scripts/test-local-registry.sh
+             bash -x ./workloads/jenkins/scripts/test-local-registry.sh
+          '''
+
+          echo "Test running a Deep Learning Example"
+          sh '''
+            timeout 1200 bash -x ./workloads/jenkins/scripts/test-dle-deployment.sh
           '''
 
           echo "Verify rsyslog forwarding is working for the k8s cluster"

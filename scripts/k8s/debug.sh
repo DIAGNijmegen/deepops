@@ -22,6 +22,7 @@ git branch > ${logdir}/git-branch.log
 git status > ${logdir}/git-status.log
 git diff > ${logdir}/git-diff.log
 git log --pretty=oneline | head -n 20 > ${logdir}/git-log.log
+ansible --version
 
 # GPU configuration
 ansible kube-node -ba "nvidia-smi" -vv > ${logdir}/nvidia-smi.log
@@ -32,6 +33,7 @@ ansible kube-node -ba "docker info" -vv > ${logdir}/docker-info.log
 ansible kube-node -ba "cat /etc/docker/daemon.json" -vv > ${logdir}/docker-daemon.log
 
 # Kubectl (Generic for any Kubernetes cluster)
+kubectl version
 kubectl get pvc -A > ${logdir}/get-pvc.log
 kubectl get pv -A > ${logdir}/get-pv.log
 kubectl get pods -A > ${logdir}/get-pods.log
