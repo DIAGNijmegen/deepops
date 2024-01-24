@@ -165,8 +165,8 @@
       -account sufficient {{ slurm_pam_lib_dir }}/pam_slurm_adopt.so action_no_jobs=ignore
       -account sufficient pam_listfile.so item=user sense=allow file=/etc/localusers
       -account required {{ slurm_pam_lib_dir }}/pam_slurm_adopt.so
-      session    optional     pam_motd.so  motd=/run/motd.dynamic
-      session    optional     pam_motd.so noupdate
+      -session    optional     pam_motd.so  motd=/run/motd.dynamic
+      -session    optional     pam_motd.so noupdate
     insertafter: EOF
     marker: "# {mark} ANSIBLE MANAGED BLOCK (ansible-role-slurm)"
   tags:
@@ -181,8 +181,8 @@
     block: |
       -account sufficient {{ slurm_pam_lib_dir }}/pam_slurm_adopt.so action_no_jobs=ignore
       -account sufficient pam_listfile.so item=user sense=allow file=/etc/localusers
-      session    optional     pam_motd.so  motd=/run/motd.dynamic
-      session    optional     pam_motd.so noupdate
+      -session    optional     pam_motd.so  motd=/run/motd.dynamic
+      -session    optional     pam_motd.so noupdate
     insertafter: EOF
     marker: "# {mark} ANSIBLE MANAGED BLOCK (ansible-role-slurm)"
   tags:
