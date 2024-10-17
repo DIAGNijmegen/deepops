@@ -12,7 +12,7 @@
 
 - name: Modprobe nv_peer_mem
   modprobe:
-    name: nv_peermem
+    name: nvidia_peermem
     state: present
   when:
     - ansible_local['gpus']['count']
