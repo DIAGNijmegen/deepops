@@ -12,16 +12,16 @@
 
 - name: Modprobe nv_peer_mem
   modprobe:
-    name: nv_peer_mem
+    name: nv_peermem
     state: present
   when:
     - ansible_local['gpus']['count']
     - is_dgx.stat.exists
 
-- name: Start nv_peer_mem service
-  service:
-    name: nv_peer_mem
-    state: started
-  when:
-    - ansible_local['gpus']['count']
-    - is_dgx.stat.exists
+#- name: Start nv_peer_mem service
+#  service:
+#    name: nv_peer_mem
+#    state: started
+#  when:
+#    - ansible_local['gpus']['count']
+#    - is_dgx.stat.exists
