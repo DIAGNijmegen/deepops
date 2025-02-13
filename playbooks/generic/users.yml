@@ -4,6 +4,8 @@
   become: true
   collections:
     - devsec.hardening
+  vars_files:
+    - /home/diag-admin/sol2_provisioning/deepops/config/group_vars/all_users.yml
   tasks:
 
     - name: Set backward compatible values for ssh-hardening if not defined
